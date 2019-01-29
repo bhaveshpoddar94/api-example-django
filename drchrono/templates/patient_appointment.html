@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}choose an appointment{% endblock %}
+
+{% block navbar %}
+    <ul class="nav navbar-nav">
+      <li><a href="{% url 'kiosk' %}">Check-in Kiosk</a></li>
+    </ul>
+{% endblock %}
+
+{% block body %}
+  {% if appointments %}
+    <table class="table">
+      <thead>
+        <th><b>Name</b></th>
+        <th><b>Time Slot</b></th>
+        <th><b>Reason</b></th>
+        <th><b>Status</b></th>
+        <th><b>Action</b></th>
+      </thead>
+      <tbody>
+        {% for a in appointments %}
+          <tr>
+            <td>{{patient_info.first_name}} {{patient_info.last_name}}</td>
+            <td>{{a.start_time |date:"g:i A"}} - {{a.end_time |date:"g:i A"}}</td>
+            <td>{{a.reason}}</td>
+            <td>{{a.status}}</td>
+            <td>
+              <a href="{% url 'update_information' a.patient a.id %}" class="btn btn-success">
+                Select
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <div class="jumbotron">
+      <h3>No appointments found for {{patient_info.first_name}} {{patient_info.last_name}}</h3>
+      <a href="{% url 'kiosk' %}" class="btn btn-warning">Go Back</a>
+    </div>
+  {% endif %}
+    
+{% endblock %}

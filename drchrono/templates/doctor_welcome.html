@@ -1,11 +1,116 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome to drchrono</title>
-</head>
-<body>
-<h1>Welcome {{ doctor.first_name }} {{ doctor.last_name }}</h1>
-{{ doctor }}
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %} drchrono doctor dashboard {% endblock %}
+
+{% block navbar %}
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'kiosk' %}">Check-in Kiosk</a></li>
+    <li><a href="{% url 'analytics' %}">Analytics</a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-right">
+   <li> <p class="navbar-text">Welcome Dr. {{doctor.first_name}} {{doctor.last_name}}</p> </li>
+  </ul>
+{% endblock %}
+{% block body %}
+  <h2>Today's Appointments</h2>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h3 class="panel-title">Current</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <th><b>Name</b></th>
+          <th><b>Time Slot</b></th>
+          <th><b>Reason</b></th>
+          <th><b>Action</b></th>
+        </thead>
+        <tbody>
+          {% for a in current %}
+            <tr>
+              <td>{{a.patient_info.first_name}} {{a.patient_info.last_name}}</td>
+              <td>{{a.start_time |date:"g:i A"}} - {{a.end_time |date:"g:i A"}}</td>
+              <td>{{a.reason}}</td>
+              <td><a href="{% url 'complete_appointment' a.id %}" class="btn btn-default">Complete Session</a></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-heading">
+      <h3 class="panel-title">Arrived</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <th><b>Name</b></th>
+          <th><b>Time Slot</b></th>
+          <th><b>Reason</b></th>
+          <th><b>Wait Time</b></th>
+          <th><b>Action</b></th>
+        </thead>
+        <tbody>
+          {% for a in arrived %}
+            <tr>
+              <td>{{a.patient_info.first_name}} {{a.patient_info.last_name}}</td>
+              <td>{{a.start_time |date:"g:i A"}} - {{a.end_time |date:"g:i A"}}</td>
+              <td>{{a.reason}}</td>
+              <td>{{a.wait_time}} minutes</td>
+              <td><a href="{% url 'begin_appointment' a.id %}" type="button" class="btn btn-default">Begin Session</button></td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-heading">
+      <h3 class="panel-title">Confirmed</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table">
+        <thead>
+          <th><b>Name</b></th>
+          <th><b>Time Slot</b></th>
+          <th><b>Reason</b></th>
+        </thead>
+        <tbody>
+          {% for a in confirmed %}
+            <tr>
+              <td>{{a.patient_info.first_name}} {{a.patient_info.last_name}}</td>
+              <td>{{a.start_time |date:"g:i A"}} - {{a.end_time |date:"g:i A"}}</td>
+              <td>{{a.reason}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <div class="panel-heading">
+        <h3 class="panel-title">Completed</h3>
+      </div>
+      <div class="panel-body">
+        <table class="table">
+          <thead>
+            <th><b>Name</b></th>
+            <th><b>Time Slot</b></th>
+            <th><b>Reason</b></th>
+          </thead>
+          <tbody>
+            {% for a in complete %}
+              <tr>
+                <td>{{a.patient_info.first_name}} {{a.patient_info.last_name}}</td>
+                <td>{{a.start_time |date:"g:i A"}} - {{a.end_time |date:"g:i A"}}</td>
+                <td>{{a.reason}}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  {% block script %} 
+    <script>
+      setTimeout("location.reload(true);", 30000);
+    </script>
+  {% endblock %}
+  
+{% endblock %}

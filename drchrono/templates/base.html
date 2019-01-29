@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
     {% block extra_header %}{% endblock %}
@@ -14,11 +14,25 @@
 
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-</head>
-<body>
-<div class="container">
-{% block body %}
-{% endblock %}
-</div>
-</body>
+  </head>
+  <!-- As a heading -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/welcome">
+          drChrono Challenge
+        </a>
+      </div>
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        {% block navbar %} {% endblock %}
+      </div>
+    </div>
+  </nav>
+  <body>
+    <div class="container">
+      {% block body %}
+      {% endblock %}
+    </div>
+    {% block script %} {% endblock %}
+  </body>
 </html>

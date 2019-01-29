@@ -180,6 +180,9 @@ class BaseEndpoint(object):
 class PatientEndpoint(BaseEndpoint):
     endpoint = "patients"
 
+class PatientSummaryEndpoint(BaseEndpoint):
+    endpoint = "patients_summary"
+
 
 class AppointmentEndpoint(BaseEndpoint):
     endpoint = "appointments"

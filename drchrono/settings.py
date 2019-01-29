@@ -40,7 +40,10 @@ INSTALLED_APPS = (
     'drchrono',
     'social_django',
     'rest_framework',
+    'crispy_forms',
 )
+
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,7 +126,7 @@ SOCIAL_AUTH_DRCHRONO_SECRET = os.getenv('SOCIAL_AUTH_SECRET')
 
 
 LOGIN_REDIRECT_URL = '/welcome/'
-LOGIN_URL = 'login/drchrono'
+LOGIN_URL = '/login/drchrono'
 
 SHELL_PLUS = "ipython"
 

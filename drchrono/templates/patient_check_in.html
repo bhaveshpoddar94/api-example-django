@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}patient check in{% endblock %}
+
+{% block navbar %}
+  <ul class="nav navbar-nav">
+    <li><a href="/kiosk">Check-in Kiosk</a></li>
+  </ul>
+{% endblock %}
+
+{% block body %}
+  <div class="jumbotron">
+    <h1>Check-in Kiosk</h1>
+    <p>Find your appointment</p>
+    <form method="post" novalidate>
+      {% csrf_token %}
+      {{ form|crispy }}
+      <button type="submit" class="btn btn-primary">Go</button>
+    </form>
+  </div>
+{% endblock %}

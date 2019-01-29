@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %} metrics {% endblock %}
+
+{% block navbar %}
+  <ul class="nav navbar-nav">
+    <li><a href="{% url 'kiosk' %}">Check-in Kiosk</a></li>
+    <li><a href="{% url 'analytics' %}">Analytics</a></li>
+  </ul>
+{% endblock %}
+
+{% block body %}
+  <div class="page-header">
+    <h1> Average wait time for today <small>{{average_wait_time}} minutes</small></h1>
+  </div>
+{% endblock %}
